@@ -1,3 +1,82 @@
 
 /or-tools/bin
 /or-tools/obj
+# Ignore Visual Studio files
+*.sln
+*.suo
+*.user
+*.userosscache
+*.aps
+*.pdb
+*.exe
+*.dll
+*.obj
+*.lib
+*.tlb
+*.cache
+*.ncb
+*.opt
+*.plg
+*.ilk
+*.bak
+*.log
+*.tmp
+*.tmp_proj
+*.vspscc
+*.vssscc
+*.vsssc
+*.vspscc
+*.pidb
+*.svclog
+*.scc
+
+# Ignore Visual Studio temporary files
+*.svclog
+
+# Ignore Visual Studio debug files
+*.pdb
+
+# Ignore NuGet packages
+*.nupkg
+
+# Ignore build output
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+arm/
+arm64/
+
+# Ignore .NET Core temporary files
+*.nuget.props
+*.nuget.targets
+
+# Ignore dotnet ef migrations
+Migrations/
+
+# Ignore dotnet ef cache
+obj/
+
+# Ignore dotnet test results
+TestResults/
+BuildLog.*
+
+# Ignore web project files
+*.csproj.user
+*.csproj.vspscc
+*.csproj.vssscc
+
+# Ignore Resharper files
+*.DotSettings.user
+*.DotSettings
+*.ReSharper.user
+*.ReSharper
+
+# Ignore TeamCity files
+_TeamCity*
+
+# Ignore Azure DevOps files
+.vs/
+.vscode/
