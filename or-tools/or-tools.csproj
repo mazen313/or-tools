@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Google.OrTools" Version="9.11.4210" />
+    <PackageReference Include="NUnit" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

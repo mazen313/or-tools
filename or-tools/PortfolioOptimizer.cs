@@ -2,20 +2,23 @@ using System;
 using System.Collections.Generic;
 using Google.OrTools.LinearSolver;
 
+
 public static class PortfolioOptimizer
 {
-    public  static void OptimizePortfolio(
+    public  static Dictionary<string, (string action, int quantity)> OptimizePortfolio(
         Dictionary<string, (double quantity, double price)> currentPortfolio,
         Dictionary<string, double> targetModel,
         HashSet<string> isinsToKeep,
+        HashSet<string> isinsToAvoid,
         double budget)
     {
+        var result = new Dictionary<string, (string action, int quantity)>();
         // Create the solver instance (SCIP or another supported solver).
         Solver solver = Solver.CreateSolver("SCIP");
         if (solver == null)
         {
             Console.WriteLine("Could not create solver.");
-            return;
+            return result;
         }
 
         // Variables: Adjustments for buying and selling
@@ -53,6 +56,7 @@ public static class PortfolioOptimizer
         // Constraint 2: Target quantities
         foreach (var isin in targetModel.Keys)
         {
+            if(isinsToAvoid.Contains(isin)) continue;
             double targetQuantity = targetModel[isin];
             double currentQuantity = currentPortfolio.ContainsKey(isin) ? currentPortfolio[isin].quantity : 0.0;
 
@@ -83,8 +87,9 @@ public static class PortfolioOptimizer
             {
                 double buy = buyVars[isin].SolutionValue();
                 double sell = sellVars[isin].SolutionValue();
-                string action = buy > 0 ? "Buy" : (sell > 0 ? "Sell" : "Keep");
+                string action = buy > 0 ? "Buy" : (sell > 0 ? "Sell" : "Keep");              
                 Console.WriteLine($"ISIN: {isin}, Action: {action}, Quantity: {Math.Max(buy, sell)}");
+                result.Add(isin, (action, (int)Math.Max(buy, sell))); 
             }
             Console.WriteLine($"Total Cost: {objective.Value()}");
         }
@@ -92,5 +97,6 @@ public static class PortfolioOptimizer
         {
             Console.WriteLine("No optimal solution found.");
         }
+        return result;
     }
 }
